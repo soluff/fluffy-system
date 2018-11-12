@@ -54,7 +54,6 @@ services:
         build:
             context: ./certbot
         links:
-            - apache
             - nginx
         volumes:
           - ./certbot/letsencrypt/:/var/www/letsencrypt
