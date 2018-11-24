@@ -54,7 +54,6 @@ services:
         build:
             context: ./certbot
         links:
-            - apache
             - nginx
         volumes:
           - ./certbot/letsencrypt/:/var/www/letsencrypt
@@ -74,14 +73,14 @@ services:
     redis:
         build:
             context: ./redis
-        expose:
-            - "6379"
+        ports:
+            - 6379:6379
         volumes:
             - ./data/redis:/data
 
     netdata:
         image: netdata/netdata
-        hostname: soluff.io # set to fqdn of host
+        hostname: example.com # set to fqdn of host
         ports:
             - 19999:19999
         cap_add:
@@ -92,3 +91,8 @@ services:
             - /proc:/host/proc:ro
             - /sys:/host/sys:ro
             - /var/run/docker.sock:/var/run/docker.sock:ro
+
+    metabase:
+        image: metabase/metabase
+        ports:
+            - 9000:3000
